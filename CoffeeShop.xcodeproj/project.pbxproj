@@ -7,28 +7,58 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5013A7A51E66BF4700CA29DA /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5013A7A41E66BF4700CA29DA /* MasterViewController.m */; };
+		5013A7A81E66C1A000CA29DA /* Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = 5013A7A71E66C1A000CA29DA /* Menu.m */; };
 		504324611E65878B000F1C79 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 504324601E65878B000F1C79 /* main.m */; };
 		504324641E65878B000F1C79 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 504324631E65878B000F1C79 /* AppDelegate.m */; };
-		504324671E65878B000F1C79 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 504324661E65878B000F1C79 /* MasterViewController.m */; };
 		5043246A1E65878C000F1C79 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 504324691E65878C000F1C79 /* DetailViewController.m */; };
 		5043246D1E65878C000F1C79 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5043246B1E65878C000F1C79 /* Main.storyboard */; };
 		5043246F1E65878C000F1C79 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5043246E1E65878C000F1C79 /* Assets.xcassets */; };
 		504324721E65878C000F1C79 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504324701E65878C000F1C79 /* LaunchScreen.storyboard */; };
+		5043247A1E658B9F000F1C79 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 504324791E658B9F000F1C79 /* libRestKit.a */; };
+		504324801E658C08000F1C79 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5043247B1E658C08000F1C79 /* CFNetwork.framework */; };
+		504324811E658C08000F1C79 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5043247C1E658C08000F1C79 /* CoreData.framework */; };
+		504324821E658C08000F1C79 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5043247D1E658C08000F1C79 /* MobileCoreServices.framework */; };
+		504324831E658C08000F1C79 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5043247E1E658C08000F1C79 /* Security.framework */; };
+		504324841E658C08000F1C79 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5043247F1E658C08000F1C79 /* SystemConfiguration.framework */; };
+		504324871E659096000F1C79 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 504324861E659096000F1C79 /* Venue.m */; };
+		5043248A1E65A253000F1C79 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 504324891E65A253000F1C79 /* Location.m */; };
+		504324931E65ACF8000F1C79 /* VenueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 504324921E65ACF8000F1C79 /* VenueCell.m */; };
+		504324951E65B7AC000F1C79 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 504324941E65B7AC000F1C79 /* CoreLocation.framework */; };
+		C69CF1A713AF7CDE583DB654 /* libPods-CoffeeShop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9518364B07CCC48A3D52E5CC /* libPods-CoffeeShop.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		10C8B948C0437FF2B31DAF28 /* Pods-CoffeeShop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeShop.release.xcconfig"; path = "Pods/Target Support Files/Pods-CoffeeShop/Pods-CoffeeShop.release.xcconfig"; sourceTree = "<group>"; };
+		5013A7A31E66BF4700CA29DA /* MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
+		5013A7A41E66BF4700CA29DA /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		5013A7A61E66C1A000CA29DA /* Menu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Menu.h; sourceTree = "<group>"; };
+		5013A7A71E66C1A000CA29DA /* Menu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Menu.m; sourceTree = "<group>"; };
 		5043245C1E65878B000F1C79 /* CoffeeShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		504324601E65878B000F1C79 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		504324621E65878B000F1C79 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		504324631E65878B000F1C79 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		504324651E65878B000F1C79 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
-		504324661E65878B000F1C79 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
 		504324681E65878C000F1C79 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		504324691E65878C000F1C79 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		5043246C1E65878C000F1C79 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5043246E1E65878C000F1C79 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		504324711E65878C000F1C79 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		504324731E65878C000F1C79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		504324791E658B9F000F1C79 /* libRestKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRestKit.a; path = "Pods/../build/Debug-iphoneos/RestKit/libRestKit.a"; sourceTree = "<group>"; };
+		5043247B1E658C08000F1C79 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		5043247C1E658C08000F1C79 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		5043247D1E658C08000F1C79 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		5043247E1E658C08000F1C79 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		5043247F1E658C08000F1C79 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		504324851E659096000F1C79 /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
+		504324861E659096000F1C79 /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
+		504324881E65A253000F1C79 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		504324891E65A253000F1C79 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		504324911E65ACF8000F1C79 /* VenueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueCell.h; sourceTree = "<group>"; };
+		504324921E65ACF8000F1C79 /* VenueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueCell.m; sourceTree = "<group>"; };
+		504324941E65B7AC000F1C79 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		9518364B07CCC48A3D52E5CC /* libPods-CoffeeShop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CoffeeShop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D970C80543645EEE9A1FBA2D /* Pods-CoffeeShop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeShop.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CoffeeShop/Pods-CoffeeShop.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,17 +66,42 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				504324951E65B7AC000F1C79 /* CoreLocation.framework in Frameworks */,
+				504324801E658C08000F1C79 /* CFNetwork.framework in Frameworks */,
+				504324811E658C08000F1C79 /* CoreData.framework in Frameworks */,
+				504324821E658C08000F1C79 /* MobileCoreServices.framework in Frameworks */,
+				504324831E658C08000F1C79 /* Security.framework in Frameworks */,
+				504324841E658C08000F1C79 /* SystemConfiguration.framework in Frameworks */,
+				5043247A1E658B9F000F1C79 /* libRestKit.a in Frameworks */,
+				C69CF1A713AF7CDE583DB654 /* libPods-CoffeeShop.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		115D8CBB62B42DE0DE0577F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				504324941E65B7AC000F1C79 /* CoreLocation.framework */,
+				5043247B1E658C08000F1C79 /* CFNetwork.framework */,
+				5043247C1E658C08000F1C79 /* CoreData.framework */,
+				5043247D1E658C08000F1C79 /* MobileCoreServices.framework */,
+				5043247E1E658C08000F1C79 /* Security.framework */,
+				5043247F1E658C08000F1C79 /* SystemConfiguration.framework */,
+				504324791E658B9F000F1C79 /* libRestKit.a */,
+				9518364B07CCC48A3D52E5CC /* libPods-CoffeeShop.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		504324531E65878B000F1C79 = {
 			isa = PBXGroup;
 			children = (
 				5043245E1E65878B000F1C79 /* CoffeeShop */,
 				5043245D1E65878B000F1C79 /* Products */,
+				D45E3ED2134901FBE711C90C /* Pods */,
+				115D8CBB62B42DE0DE0577F5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,11 +118,19 @@
 			children = (
 				504324621E65878B000F1C79 /* AppDelegate.h */,
 				504324631E65878B000F1C79 /* AppDelegate.m */,
-				504324651E65878B000F1C79 /* MasterViewController.h */,
-				504324661E65878B000F1C79 /* MasterViewController.m */,
 				504324681E65878C000F1C79 /* DetailViewController.h */,
 				504324691E65878C000F1C79 /* DetailViewController.m */,
+				5013A7A31E66BF4700CA29DA /* MasterViewController.h */,
+				5013A7A41E66BF4700CA29DA /* MasterViewController.m */,
+				504324851E659096000F1C79 /* Venue.h */,
+				504324861E659096000F1C79 /* Venue.m */,
+				504324911E65ACF8000F1C79 /* VenueCell.h */,
+				504324921E65ACF8000F1C79 /* VenueCell.m */,
 				5043246B1E65878C000F1C79 /* Main.storyboard */,
+				504324881E65A253000F1C79 /* Location.h */,
+				504324891E65A253000F1C79 /* Location.m */,
+				5013A7A61E66C1A000CA29DA /* Menu.h */,
+				5013A7A71E66C1A000CA29DA /* Menu.m */,
 				5043246E1E65878C000F1C79 /* Assets.xcassets */,
 				504324701E65878C000F1C79 /* LaunchScreen.storyboard */,
 				504324731E65878C000F1C79 /* Info.plist */,
@@ -84,6 +147,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D45E3ED2134901FBE711C90C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D970C80543645EEE9A1FBA2D /* Pods-CoffeeShop.debug.xcconfig */,
+				10C8B948C0437FF2B31DAF28 /* Pods-CoffeeShop.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -91,9 +163,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 504324761E65878C000F1C79 /* Build configuration list for PBXNativeTarget "CoffeeShop" */;
 			buildPhases = (
+				D786896031C978BA590A9843 /* [CP] Check Pods Manifest.lock */,
 				504324581E65878B000F1C79 /* Sources */,
 				504324591E65878B000F1C79 /* Frameworks */,
 				5043245A1E65878B000F1C79 /* Resources */,
+				1585DE38C551C2B34D501BF5 /* [CP] Embed Pods Frameworks */,
+				3884C62A41B73DA451C5C892 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -115,6 +190,7 @@
 				TargetAttributes = {
 					5043245B1E65878B000F1C79 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 4DSV4KSZH3;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -150,15 +226,67 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1585DE38C551C2B34D501BF5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CoffeeShop/Pods-CoffeeShop-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3884C62A41B73DA451C5C892 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CoffeeShop/Pods-CoffeeShop-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D786896031C978BA590A9843 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		504324581E65878B000F1C79 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				504324641E65878B000F1C79 /* AppDelegate.m in Sources */,
-				504324671E65878B000F1C79 /* MasterViewController.m in Sources */,
 				504324611E65878B000F1C79 /* main.m in Sources */,
+				504324871E659096000F1C79 /* Venue.m in Sources */,
+				5043248A1E65A253000F1C79 /* Location.m in Sources */,
 				5043246A1E65878C000F1C79 /* DetailViewController.m in Sources */,
+				504324931E65ACF8000F1C79 /* VenueCell.m in Sources */,
+				5013A7A81E66C1A000CA29DA /* Menu.m in Sources */,
+				5013A7A51E66BF4700CA29DA /* MasterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,7 +352,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -265,7 +393,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -274,10 +402,27 @@
 		};
 		504324771E65878C000F1C79 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D970C80543645EEE9A1FBA2D /* Pods-CoffeeShop.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4DSV4KSZH3;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/ISO8601DateFormatterValueTransformer\"",
+					"\"${PODS_ROOT}/Headers/Public/RKValueTransformers\"",
+					"\"${PODS_ROOT}/Headers/Public/RestKit\"",
+					"\"${PODS_ROOT}/Headers/Public/SOCKit\"",
+					"\"${PODS_ROOT}/Headers/Public/TransitionKit\"",
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+				);
 				INFOPLIST_FILE = CoffeeShop/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/RestKit",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tamanna.CoffeeShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -285,10 +430,27 @@
 		};
 		504324781E65878C000F1C79 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10C8B948C0437FF2B31DAF28 /* Pods-CoffeeShop.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4DSV4KSZH3;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/ISO8601DateFormatterValueTransformer\"",
+					"\"${PODS_ROOT}/Headers/Public/RKValueTransformers\"",
+					"\"${PODS_ROOT}/Headers/Public/RestKit\"",
+					"\"${PODS_ROOT}/Headers/Public/SOCKit\"",
+					"\"${PODS_ROOT}/Headers/Public/TransitionKit\"",
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+				);
 				INFOPLIST_FILE = CoffeeShop/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/RestKit",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tamanna.CoffeeShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -313,6 +475,7 @@
 				504324781E65878C000F1C79 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

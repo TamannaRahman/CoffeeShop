@@ -16,9 +16,7 @@
 
 - (void)configureView {
     // Update the user interface for the detail item.
-    if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
-    }
+    
 }
 
 
@@ -26,6 +24,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
+    NSLog(@"_urlString %@",_urlString);
+    NSURL *url = [NSURL URLWithString:_urlString];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+    [_webView loadRequest:urlRequest];
+    
 }
 
 
@@ -37,14 +40,7 @@
 
 #pragma mark - Managing the detail item
 
-- (void)setDetailItem:(NSDate *)newDetailItem {
-    if (_detailItem != newDetailItem) {
-        _detailItem = newDetailItem;
-        
-        // Update the view.
-        [self configureView];
-    }
-}
+
 
 
 @end

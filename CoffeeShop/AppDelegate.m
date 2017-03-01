@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "DetailViewController.h"
+#import <RestKit/RestKit.h>
+
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 

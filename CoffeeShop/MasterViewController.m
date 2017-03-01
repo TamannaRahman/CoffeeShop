@@ -6,26 +6,228 @@
 //  Copyright © 2017 Tamanna. All rights reserved.
 //
 
+#import <RestKit/RestKit.h>
 #import "MasterViewController.h"
 #import "DetailViewController.h"
+#import "Venue.h"
+#import "Location.h"
+#import "VenueCell.h"
+#import "Menu.h"
+
+#define kCLIENTID @"YTI0POTACEAK0OOVGSPM4N4BRVHWZ2E1XOC4G3XTTHVSY31S"
+#define kCLIENTSECRET @"LJYH4SWC15EX22G055VXXNRIYQ5OOYQU3FA0ZVY1OHHIDY0T"
+
 
 @interface MasterViewController ()
 
-@property NSMutableArray *objects;
+
 @end
 
-@implementation MasterViewController
+@implementation MasterViewController{
+    
+    CLLocationManager *locationManager;
+    NSMutableArray *distanceArray;
+    
+    NSMutableArray *distanceArraySorted;
+    NSMutableArray *sortedArray;
+    NSMutableArray *sortedVenues;
+    CLLocation *previousLocation;
+
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
+   
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+
+    sortedVenues = [[NSMutableArray alloc] init];
+    distanceArray = [[NSMutableArray alloc] init];
+    distanceArraySorted = [[NSMutableArray alloc] init];
+    sortedArray = [[NSMutableArray alloc] init];
+    _urlArray = [[NSMutableArray alloc] init];
+    
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+        [locationManager requestAlwaysAuthorization];
+    
+    [locationManager startUpdatingLocation];
+
 }
 
+
+- (void)configureRestKit
+{
+    //NSLog(@"............ configureRestKit .........");
+    // initialize AFNetworking HTTPClient
+    NSURL *baseURL = [NSURL URLWithString:@"https://api.foursquare.com"];
+    AFRKHTTPClient *client = [[AFRKHTTPClient alloc] initWithBaseURL:baseURL];
+    
+    // initialize RestKit
+    RKObjectManager *objectManager = [[RKObjectManager alloc] initWithHTTPClient:client];
+    
+    // setup object mappings
+    RKObjectMapping *venueMapping = [RKObjectMapping mappingForClass:[Venue class]];
+    [venueMapping addAttributeMappingsFromArray:@[@"name"]];
+    
+    // register mappings with the provider using a response descriptor
+    RKResponseDescriptor *responseDescriptor =
+    [RKResponseDescriptor responseDescriptorWithMapping:venueMapping
+                                                 method:RKRequestMethodGET
+                                            pathPattern:@"/v2/venues/search"
+                                                keyPath:@"response.venues"
+                                            statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    
+    [objectManager addResponseDescriptor:responseDescriptor];
+    
+    // define location object mapping
+    RKObjectMapping *locationMapping = [RKObjectMapping mappingForClass:[Location class]];
+    [locationMapping addAttributeMappingsFromArray:@[@"address", @"city", @"country", @"postalCode", @"state", @"distance", @"lat", @"lng"]];
+    
+    // define relationship mapping
+    [venueMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"location" toKeyPath:@"location" withMapping:locationMapping]];
+    
+    
+    RKObjectMapping *menuMapping = [RKObjectMapping mappingForClass:[Menu class]];
+    [menuMapping addAttributeMappingsFromArray:@[@"url", @"mobileUrl"]];
+    
+    [venueMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"menu" toKeyPath:@"menu" withMapping:menuMapping]];
+    
+    
+   }
+
+- (void)loadVenues:(NSString *)currentLocation
+{
+    NSLog(@".............LOAD VENUES............");
+    NSString *clientID = kCLIENTID;
+    NSString *clientSecret = kCLIENTSECRET;
+    
+    NSDictionary *queryParams = @{@"ll" : currentLocation,
+                                  @"client_id" : clientID,
+                                  @"client_secret" : clientSecret,
+                                  @"categoryId" : @"4bf58dd8d48988d1e0931735",
+                                  @"v" : @"20140118"};
+    
+    [[RKObjectManager sharedManager] getObjectsAtPath:@"/v2/venues/search"
+        parameters:queryParams
+            success:^(RKObjectRequestOperation *operation,
+            RKMappingResult *mappingResult) {
+                
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    
+                    //NSLog(@"venues: %@",mappingResult.array);
+                    
+                    if (_venues){
+                        
+                        [self.venues removeAllObjects ];
+                    }
+                    else{
+                        self.venues = [NSMutableArray arrayWithArray:mappingResult.array];
+                    }
+                    [self sortVenues];
+                    [self getWebUrl];
+                });
+                
+
+                }
+                       failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                  NSLog(@"What do you mean by 'there is no coffee?': %@", error);
+                                              }];
+}
+- (void)getWebUrl{
+    
+    for (Venue *venue in _venues) {
+        
+        NSLog(@"url %@",venue.menu.url);
+        NSString *url = [NSString stringWithFormat:@"%@", venue.menu.mobileUrl];
+        
+        if ([url  isEqual: @"(null)"]) {
+            [_urlArray addObject:@"https://foursquare.com/v"];
+
+        }
+        else
+        [_urlArray addObject:url];
+
+    }
+    NSLog(@"url %@",_urlArray);
+}
+- (void)sortVenues{
+    
+   // NSLog(@".............SORT VENUES............");
+   // NSLog(@"_venues %lu %@",(unsigned long)_venues.count,_venues);
+    
+    
+    for (Venue *venue in _venues) {
+        
+        [distanceArray addObject:venue.location.distance];
+    }
+    //NSLog(@"distanceArray %lu , %@",(unsigned long)distanceArray.count, distanceArray);
+
+    //avoid duplication
+    
+    NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:distanceArray];
+    
+    if (distanceArray.count > 0 ) {
+        [distanceArray removeAllObjects];
+        [distanceArray addObjectsFromArray:[orderedSet array]];
+    }
+    //NSLog(@"distanceArray without duplicate %lu , %@",(unsigned long)distanceArray.count, distanceArray);
+    
+    
+    if (sortedArray.count){
+    
+        [sortedArray removeAllObjects];
+    }
+
+    //ascending order sorting
+    [sortedArray addObjectsFromArray: [distanceArray  sortedArrayUsingComparator:
+                            ^NSComparisonResult(id obj1, id obj2){
+                                return [obj1 compare:obj2];
+                            }]];
+    
+    
+    //NSLog(@"sorted array : %lu : %@", (unsigned long)sortedArray.count, sortedArray);
+ 
+    
+    for (int i=0; i<sortedArray.count ; i++) {
+        
+        for (Venue *venue in _venues) {
+        
+            if ([[sortedArray objectAtIndex:i] isEqualToNumber:venue.location.distance]) {
+                
+                
+                [sortedVenues insertObject:venue atIndex:i];
+            }
+        }
+    }
+    
+   // NSLog(@"_sortedVenues %lu _venues %lu",sortedVenues.count,_venues.count);
+    
+    [self.tableView reloadData];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError: %@", error);
+    UIAlertView *errorAlert = [[UIAlertView alloc]
+                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [errorAlert show];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    
+    CLLocation *currentLocation = [locations lastObject];
+    
+    [self configureRestKit];
+
+    [self loadVenues:[NSString stringWithFormat:@"%.2f,%.2f",currentLocation.coordinate.latitude, currentLocation.coordinate.longitude]];
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     self.clearsSelectionOnViewWillAppear = self.splitViewController.isCollapsed;
@@ -39,29 +241,22 @@
 }
 
 
-- (void)insertNewObject:(id)sender {
-    if (!self.objects) {
-        self.objects = [[NSMutableArray alloc] init];
-    }
-    [self.objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
+
 
 
 #pragma mark - Segues
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
+       
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = self.objects[indexPath.row];
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
-        [controller setDetailItem:object];
+       controller.urlString = [NSString stringWithFormat:@"%@",[_urlArray objectAtIndex:indexPath.row]];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
+        
     }
 }
-
 
 #pragma mark - Table View
 
@@ -71,15 +266,21 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.objects.count;
+    return sortedVenues.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-
-    NSDate *object = self.objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    
+    //NSMutableArray *venueFinal = [[[NSUserDefaults standardUserDefaults] valueForKey:@"Sorted_Venue"] mutableCopy];
+    VenueCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VenueCell" forIndexPath:indexPath];
+    
+    
+        Venue *sortedVenue = sortedVenues[indexPath.row];
+        cell.nameLabel.text = sortedVenue.name;
+        cell.addressLabel.text = [NSString stringWithFormat:@"%@, %@, %@-%@", sortedVenue.location.address, sortedVenue.location.city,sortedVenue.location.state,sortedVenue.location.postalCode];
+        cell.distanceLabel.text = [NSString stringWithFormat:@"%.0fm", sortedVenue.location.distance.floatValue];
+    
     return cell;
 }
 
@@ -89,7 +290,7 @@
     return YES;
 }
 
-
+/*
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.objects removeObjectAtIndex:indexPath.row];
@@ -98,6 +299,6 @@
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
 }
-
+*/
 
 @end
