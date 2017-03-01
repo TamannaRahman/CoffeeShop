@@ -16,6 +16,7 @@
 @property (strong, nonatomic) DetailViewController *detailViewController;
 @property (nonatomic, strong) NSMutableArray *venues;
 @property (nonatomic, strong) NSMutableArray *urlArray;
+@property(nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 
 @end
 

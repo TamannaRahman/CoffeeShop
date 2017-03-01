@@ -27,26 +27,22 @@
     
     CLLocationManager *locationManager;
     NSMutableArray *distanceArray;
-    
-    NSMutableArray *distanceArraySorted;
     NSMutableArray *sortedArray;
     NSMutableArray *sortedVenues;
-    CLLocation *previousLocation;
-
-    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-   
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 
     sortedVenues = [[NSMutableArray alloc] init];
     distanceArray = [[NSMutableArray alloc] init];
-    distanceArraySorted = [[NSMutableArray alloc] init];
     sortedArray = [[NSMutableArray alloc] init];
     _urlArray = [[NSMutableArray alloc] init];
+    
+    [self createActivityIndicator];
+    [self.activityIndicator startAnimating];
     
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
@@ -58,10 +54,21 @@
 
 }
 
+-(void)createActivityIndicator{
+    
+    UIActivityIndicatorView *actInd=[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    
+    actInd.color=[UIColor whiteColor];
+    
+    [actInd setCenter:self.view.center];
+    
+    self.activityIndicator=actInd;
+    [self.view addSubview:self.activityIndicator];
+}
 
 - (void)configureRestKit
 {
-    //NSLog(@"............ configureRestKit .........");
+
     // initialize AFNetworking HTTPClient
     NSURL *baseURL = [NSURL URLWithString:@"https://api.foursquare.com"];
     AFRKHTTPClient *client = [[AFRKHTTPClient alloc] initWithBaseURL:baseURL];
@@ -95,13 +102,10 @@
     [menuMapping addAttributeMappingsFromArray:@[@"url", @"mobileUrl"]];
     
     [venueMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"menu" toKeyPath:@"menu" withMapping:menuMapping]];
-    
-    
-   }
+}
 
 - (void)loadVenues:(NSString *)currentLocation
 {
-    NSLog(@".............LOAD VENUES............");
     NSString *clientID = kCLIENTID;
     NSString *clientSecret = kCLIENTSECRET;
     
@@ -116,11 +120,7 @@
             success:^(RKObjectRequestOperation *operation,
             RKMappingResult *mappingResult) {
                 
-                
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    
-                    //NSLog(@"venues: %@",mappingResult.array);
                     
                     if (_venues){
                         
@@ -143,7 +143,6 @@
     
     for (Venue *venue in _venues) {
         
-        NSLog(@"url %@",venue.menu.url);
         NSString *url = [NSString stringWithFormat:@"%@", venue.menu.mobileUrl];
         
         if ([url  isEqual: @"(null)"]) {
@@ -154,30 +153,22 @@
         [_urlArray addObject:url];
 
     }
-    NSLog(@"url %@",_urlArray);
 }
+
 - (void)sortVenues{
     
-   // NSLog(@".............SORT VENUES............");
-   // NSLog(@"_venues %lu %@",(unsigned long)_venues.count,_venues);
-    
-    
-    for (Venue *venue in _venues) {
+       for (Venue *venue in _venues) {
         
         [distanceArray addObject:venue.location.distance];
     }
-    //NSLog(@"distanceArray %lu , %@",(unsigned long)distanceArray.count, distanceArray);
 
     //avoid duplication
-    
     NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:distanceArray];
     
     if (distanceArray.count > 0 ) {
         [distanceArray removeAllObjects];
         [distanceArray addObjectsFromArray:[orderedSet array]];
     }
-    //NSLog(@"distanceArray without duplicate %lu , %@",(unsigned long)distanceArray.count, distanceArray);
-    
     
     if (sortedArray.count){
     
@@ -190,33 +181,32 @@
                                 return [obj1 compare:obj2];
                             }]];
     
-    
-    //NSLog(@"sorted array : %lu : %@", (unsigned long)sortedArray.count, sortedArray);
- 
-    
     for (int i=0; i<sortedArray.count ; i++) {
         
         for (Venue *venue in _venues) {
         
             if ([[sortedArray objectAtIndex:i] isEqualToNumber:venue.location.distance]) {
                 
-                
                 [sortedVenues insertObject:venue atIndex:i];
             }
         }
     }
     
-   // NSLog(@"_sortedVenues %lu _venues %lu",sortedVenues.count,_venues.count);
-    
+    [self.activityIndicator stopAnimating];
+
     [self.tableView reloadData];
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSLog(@"didFailWithError: %@", error);
-    UIAlertView *errorAlert = [[UIAlertView alloc]
-                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [errorAlert show];
+    
+    UIAlertController *alertController = [UIAlertController  alertControllerWithTitle:@"Error"  message:@"Failed to Get Your Location"  preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }]];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
@@ -272,7 +262,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //NSMutableArray *venueFinal = [[[NSUserDefaults standardUserDefaults] valueForKey:@"Sorted_Venue"] mutableCopy];
     VenueCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VenueCell" forIndexPath:indexPath];
     
     
@@ -290,15 +279,6 @@
     return YES;
 }
 
-/*
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.objects removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-    }
-}
-*/
+
 
 @end
