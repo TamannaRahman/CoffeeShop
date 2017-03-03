@@ -109,7 +109,30 @@
     NSString *clientID = kCLIENTID;
     NSString *clientSecret = kCLIENTSECRET;
     
-    NSDictionary *queryParams = @{@"ll" : currentLocation,
+    NSString *location;
+  /*  if (currentLocation) {
+        location = currentLocation;
+    }
+    else{
+        // For simulator, dummy location
+        location = @"-33.97,151.11";
+    }
+    
+    NSLog(@"location %@", location);
+    */
+#if TARGET_IPHONE_SIMULATOR
+    
+    NSLog(@"Running in Simulator - no app store or giro");
+    location = @"-33.97,151.11";
+    
+#else
+    
+    NSLog(@"Running on the Device");
+    location = currentLocation;
+    
+#endif
+    
+    NSDictionary *queryParams = @{@"ll" : location,
                                   @"client_id" : clientID,
                                   @"client_secret" : clientSecret,
                                   @"categoryId" : @"4bf58dd8d48988d1e0931735",
